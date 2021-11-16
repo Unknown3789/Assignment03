@@ -1,3 +1,5 @@
+import java.io.BufferedWriter;
+
 public abstract class Media
 {
     public enum MediaType
@@ -17,6 +19,8 @@ public abstract class Media
     }
 
     public abstract String GetDescrition();
+
+    public abstract void Serialize(BufferedWriter bw);
 
 
 }

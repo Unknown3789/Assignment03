@@ -1,4 +1,7 @@
-public class Song extends Media {
+import java.io.BufferedWriter;
+import java.io.IOException;
+
+public class Song extends Media{
 
 
     public Song(float length)
@@ -17,6 +20,19 @@ public class Song extends Media {
     public String GetDescrition() {
        
         return "Hey, I'm a song " + lengthInSeconds;
+    }
+
+    @Override
+    public void Serialize(BufferedWriter writeFile) {
+       
+        try {
+            writeFile.write(2 + "," + lengthInSeconds);
+            writeFile.newLine();
+        } catch (IOException e) {
+            
+
+        }
+        
     }
     
 }

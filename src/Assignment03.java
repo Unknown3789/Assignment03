@@ -1,4 +1,7 @@
-
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Assignment03 {
 
@@ -25,6 +28,21 @@ public class Assignment03 {
             {
                 System.out.println("Song length" + ((Song)media[i]).SongLengthInSeconds());
             }
+        }
+
+        // 0, Author, ISBN
+        // 2, Author, title, LEngth
+
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter(new File("Test.csv")));
+            for(int i=0; i< media.length; i++)
+            {
+                media[i].Serialize(bw);
+            }
+            bw.close();
+        } catch (IOException e) {
+           
+            e.printStackTrace();
         }
 
        /* System.out.println("What media you want?\n1 - Book\n2 - Song\n3 - Movie");

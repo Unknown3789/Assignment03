@@ -1,3 +1,6 @@
+import java.io.BufferedWriter;
+import java.io.IOException;
+
 public class Book extends Media {
 
     private String ISBN;
@@ -18,6 +21,20 @@ public class Book extends Media {
 
        
         return "Hey, I'm a book " + ISBN;
+    }
+
+    @Override
+    public void Serialize(BufferedWriter writeFile) {
+        
+        try {
+            writeFile.append(0 + "," + ISBN);
+            writeFile.newLine();
+        } catch (IOException e) 
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
     }
     
 }
