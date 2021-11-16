@@ -1,6 +1,5 @@
 public class Book extends Media {
 
-
     private String ISBN;
 
     public Book(String isbn)
