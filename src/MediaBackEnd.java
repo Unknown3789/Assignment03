@@ -13,8 +13,8 @@ public class MediaBackEnd {
 
         this.media = new Media[2];
 
-        // this.media[0] = new Book("Unknown");
-        // this.media[1] = new Song(0f);
+        this.media[0] = new Book("Unknown");
+        this.media[1] = new Song(0f);
         // this.media[3] = new Game("Unknown");
 
         int i = 0;
