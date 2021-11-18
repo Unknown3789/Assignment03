@@ -3,38 +3,31 @@ import java.io.IOException;
 
 public class Book extends Media {
 
-    private String ISBN;
+    private long ISBN;
 
-    public Book(String isbn)
-    {
-        ISBN = isbn;
+    // public Book(String ISBN)
+    public Book(String iSBN) {
+
         type = Media.MediaType.BOOK;
     }
-    public String GetISBN()
-    {
-        return ISBN;
-    }
-   
 
     @Override
-    public String GetDescrition() {
+    public String GetDescription() {
 
-       
         return "Hey, I'm a book " + ISBN;
     }
 
     @Override
     public void Serialize(BufferedWriter writeFile) {
-        
+
         try {
             writeFile.append(0 + "," + ISBN);
             writeFile.newLine();
-        } catch (IOException e) 
-        {
+        } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
+
     }
-    
+
 }
