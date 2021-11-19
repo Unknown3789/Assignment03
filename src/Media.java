@@ -5,6 +5,11 @@ public abstract class Media {
         BOOK, MOVIE, SONG
     }
 
+    public Media(String title)
+    {
+        this.title = title;
+    }
+
     protected int ID;
     protected MediaType type;
     protected String title;

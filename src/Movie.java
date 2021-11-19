@@ -1,29 +1,24 @@
 import java.io.BufferedWriter;
 import java.io.IOException;
 
-public class Book extends Media {
-
-    private long ISBN;
-
-    // public Book(String ISBN)
-    public Book(String title, long isbn) {
+public class Movie extends Media {
+    
+    public Movie(String title){
         super(title);
-        this.ISBN = isbn;
-       
-        type = Media.MediaType.BOOK;
+        type = Media.MediaType.MOVIE;
     }
 
     @Override
     public String GetDescription() {
 
-        return "Hey, I'm a book " + ISBN;
+        return "Hey, I'm a Movie " ;
     }
 
     @Override
     public void Serialize(BufferedWriter writeFile) {
 
         try {
-            writeFile.append(0 + "," + ISBN);
+            writeFile.append(0 + ",");
             writeFile.newLine();
         } catch (IOException e) {
             // TODO Auto-generated catch block
@@ -31,5 +26,4 @@ public class Book extends Media {
         }
 
     }
-
 }

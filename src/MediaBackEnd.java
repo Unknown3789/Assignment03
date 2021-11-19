@@ -1,103 +1,108 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class MediaBackEnd {
 
     private Media[] media;
     private String filePath;
+    private int maxMediaEntry;
     private int mediaCounter;
 
     public MediaBackEnd() {
 
         this.filePath = "Test.csv";
         this.mediaCounter = 0;
-        
+
         File file = new File(filePath);
-        if(file.exists())
-        {
+        if (file.exists()) {
             fileReader();
 
-        }
-        else
-        {
+        } else {
             media = new Media[10];
+            maxMediaEntry = 10;
         }
+        expandMaxEntry();
+        System.out.println("Counter " + mediaCounter);
+        media[mediaCounter] = new Book("asdasd", 88888888);
+        for (int i = 0; i < media.length; i++) {
+            if (media[i] != null) {
+                System.out.println(media[i].GetDescription());
 
-
-
-
-         for (int i = 0; i < media.length; i++) {
-           System.out.println(media[i].GetDescription());
-        } 
-
-       /*  try {
-
-            BufferedWriter bw = new BufferedWriter(new FileWriter(new File("Test.csv")));
-            for (int i = 0; i < this.media.length; i++) {
-                this.media[i].Serialize(bw);
             }
-            bw.close();
-        } catch (IOException e) {
-
-            e.printStackTrace();
-        } */
-        // 0, Author, ISBN
-        // 2, Author, title, LEngth
-
-        /*
-         * System.out.println("What media you want?\n1 - Book\n2 - Song\n3 - Movie");
-         * Scanner scan = new Scanner(System.in); int choice = scan.nextInt();
-         * 
-         * if(choice == 1) { for(int i=0; i< media.length; i++) { if(media[i].GetType()
-         * == Media.MediaType.BOOK) {
-         * 
-         * } } }
-         */
-
+        }
     }
 
     public void fileReader() {
 
-		BufferedReader reader = null;
-		// Try and Catch utilised for exception catching for invalid BufferedReading.
-		try {
-			reader = new BufferedReader(new FileReader(this.filePath));
-			String currentLine = reader.readLine();
-            
+        BufferedReader reader = null;
+        // Try and Catch utilised for exception catching for invalid BufferedReading.
+        try {
+            reader = new BufferedReader(new FileReader(this.filePath));
+            String currentLine = reader.readLine();
+
             int entreis = Integer.parseInt(currentLine);
             this.media = new Media[entreis];
-            
-           
+            maxMediaEntry = entreis;
+
             currentLine = reader.readLine();
-			while (currentLine != null && !currentLine.equals("")) {
+            while (currentLine != null && !currentLine.equals("")) {
                 String[] readMedia = currentLine.split(",");
 
-               if(readMedia[0].charAt(0) == '0')
-               {
-                   media[mediaCounter] = new Book(Long.parseLong(readMedia[1])); 
-                   mediaCounter++;
-               }
-               else if(readMedia[0].charAt(0) == '2')
-               {
-                   media[mediaCounter] = new Song(Float.parseFloat(readMedia[1]));
-                   mediaCounter++;
-               }
+                if (readMedia[0].charAt(0) == '0') {
+                    media[mediaCounter] = new Book(readMedia[1], Long.parseLong(readMedia[2].trim()));
+                    mediaCounter++;
+                } else if (readMedia[0].charAt(0) == '1') {
+                    media[mediaCounter] = new Movie(readMedia[1]);
+                    mediaCounter++;
+                } else if (readMedia[0].charAt(0) == '2') {
+                    media[mediaCounter] = new Song(readMedia[1], Float.parseFloat(readMedia[2].trim()));
+                    mediaCounter++;
+                } else {
+                    throw new InvalidMediaTypeException(readMedia[0]);
+
+                }
                 currentLine = reader.readLine();
+                reader.close();
             }
-			reader.close();
 
-		} catch (Exception e) {
-			System.out.println("");
-			String errorMessage = "Error: Nothing Entered";
-			System.out.println(errorMessage);
+        } catch (Exception e) {
 
-		}
-	}
-    
-    public void readMediaData(){
+            System.out.println("Error while reading file: " + e.getMessage());
+        }
+    }
+
+    public void saveFile(String fileName) {
+
+        try {
+
+            BufferedWriter writeToFile = new BufferedWriter(new FileWriter(fileName + ".csv", true));
+            writeToFile.write(this.mediaCounter);
+            int i = 0;
+            while (i < mediaCounter) {
+                media[i].Serialize(writeToFile);
+            }
+            writeToFile.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
     }
-   
+
+    public void expandMaxEntry() {
+
+        Media[] temp = new Media[this.maxMediaEntry + 1];
+        int j = 0;
+        while (j < media.length) {
+            temp[j] = media[j];
+            j++;
+        }
+        this.maxMediaEntry++;
+        media = temp;
+    }
 
 }

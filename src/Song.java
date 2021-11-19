@@ -5,7 +5,9 @@ public class Song extends Media {
 
     private float lengthInSeconds;
 
-    public Song(float length) {
+    public Song(String title, float length) {
+        super(title);
+        
         lengthInSeconds = length;
         type = MediaType.SONG;
     }
