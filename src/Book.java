@@ -6,8 +6,8 @@ public class Book extends Media {
     private long ISBN;
 
     // public Book(String ISBN)
-    public Book(String iSBN) {
-
+    public Book(long isbn) {
+        this.ISBN = isbn;
         type = Media.MediaType.BOOK;
     }
 
