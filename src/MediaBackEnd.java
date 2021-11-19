@@ -26,14 +26,14 @@ public class MediaBackEnd {
             maxMediaEntry = 10;
         }
         expandMaxEntry();
-        System.out.println("Counter " + mediaCounter);
-        media[mediaCounter] = new Book("asdasd", 88888888);
-        for (int i = 0; i < media.length; i++) {
-            if (media[i] != null) {
-                System.out.println(media[i].GetDescription());
+        // System.out.println("Counter " + mediaCounter);
+        // media[mediaCounter] = new Book("asdasd", 88888888);
+        // for (int i = 0; i < media.length; i++) {
+        //     if (media[i] != null) {
+        //         System.out.println(media[i].GetDescription());
 
-            }
-        }
+        //     }
+        // }
     }
 
     public void fileReader() {
@@ -44,26 +44,26 @@ public class MediaBackEnd {
             reader = new BufferedReader(new FileReader(this.filePath));
             String currentLine = reader.readLine();
 
-            int entreis = Integer.parseInt(currentLine);
-            this.media = new Media[entreis];
-            maxMediaEntry = entreis;
+            int entries = Integer.parseInt(currentLine);
+            this.media = new Media[entries];
+            maxMediaEntry = entries;
 
             currentLine = reader.readLine();
             while (currentLine != null && !currentLine.equals("")) {
                 String[] readMedia = currentLine.split(",");
 
                 if (readMedia[0].charAt(0) == '0') {
-                    media[mediaCounter] = new Book(readMedia[1], Long.parseLong(readMedia[2].trim()));
-                    mediaCounter++;
+                    media[this.mediaCounter] = new Book(readMedia[1], Long.parseLong(readMedia[2].trim()));
+                    this.mediaCounter++;
                 } else if (readMedia[0].charAt(0) == '1') {
-                    media[mediaCounter] = new Movie(readMedia[1]);
-                    mediaCounter++;
+                    media[this.mediaCounter] = new Movie(readMedia[1], readMedia[2], Float.parseFloat(readMedia[3]),
+                            readMedia[4]);
+                    this.mediaCounter++;
                 } else if (readMedia[0].charAt(0) == '2') {
-                    media[mediaCounter] = new Song(readMedia[1], Float.parseFloat(readMedia[2].trim()));
-                    mediaCounter++;
+                    media[this.mediaCounter] = new Song(readMedia[1], Float.parseFloat(readMedia[2].trim()));
+                    this.mediaCounter++;
                 } else {
                     throw new InvalidMediaTypeException(readMedia[0]);
-
                 }
                 currentLine = reader.readLine();
                 reader.close();
@@ -75,6 +75,7 @@ public class MediaBackEnd {
         }
     }
 
+    
     public void saveFile(String fileName) {
 
         try {
@@ -87,7 +88,6 @@ public class MediaBackEnd {
             }
             writeToFile.close();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -103,6 +103,16 @@ public class MediaBackEnd {
         }
         this.maxMediaEntry++;
         media = temp;
+    }
+
+    // Getter and Setter explicitly public for accessible from everywhere.
+    // Parameters within class to initialize attributes
+    public int getMediaCounter() {
+        return this.mediaCounter;
+    }
+
+    public Media[] getMedia() {
+        return media;
     }
 
 }

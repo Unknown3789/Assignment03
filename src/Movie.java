@@ -2,8 +2,8 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 
 public class Movie extends Media {
-    
-    public Movie(String title){
+
+    public Movie(String title, String director, float length, String comment){
         super(title);
         type = Media.MediaType.MOVIE;
     }

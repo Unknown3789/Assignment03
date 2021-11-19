@@ -5,11 +5,9 @@ public class Book extends Media {
 
     private long ISBN;
 
-    // public Book(String ISBN)
     public Book(String title, long isbn) {
         super(title);
         this.ISBN = isbn;
-       
         type = Media.MediaType.BOOK;
     }
 
@@ -32,4 +30,12 @@ public class Book extends Media {
 
     }
 
+    public long getISBN() {
+        return ISBN;
+    }
+
+    public void setISBN(long iSBN) {
+        ISBN = iSBN;
+    }
+    
 }
