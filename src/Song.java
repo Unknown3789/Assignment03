@@ -1,5 +1,4 @@
-import java.io.BufferedWriter;
-import java.io.IOException;
+import java.io.*;
 
 public class Song extends Media {
 

@@ -1,9 +1,4 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 public class MediaBackEnd {
 
@@ -26,14 +21,6 @@ public class MediaBackEnd {
             maxMediaEntry = 10;
         }
         expandMaxEntry();
-        // System.out.println("Counter " + mediaCounter);
-        // media[mediaCounter] = new Book("asdasd", 88888888);
-        // for (int i = 0; i < media.length; i++) {
-        // if (media[i] != null) {
-        // System.out.println(media[i].GetDescription());
-
-        // }
-        // }
     }
 
     public void fileReader() {

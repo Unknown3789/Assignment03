@@ -1,4 +1,4 @@
-import java.io.BufferedWriter;
+import java.io.*;
 
 public abstract class Media {
 
@@ -12,10 +12,6 @@ public abstract class Media {
 
     public Media(String title) {
         this.title = title;
-    }
-
-    public MediaType GetType() {
-        return type;
     }
 
     public MediaType getType() {
