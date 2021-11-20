@@ -25,7 +25,7 @@ public class Movie extends Media {
     public void Serialize(BufferedWriter writeFile) {
 
         try {
-            writeFile.append(0 + "," + title + "," + length + comment);
+            writeFile.append(1 + "," + title + "," + director + "," + length + "," + comment);
             writeFile.newLine();
         } catch (IOException e) {
             // TODO Auto-generated catch block

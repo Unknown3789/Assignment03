@@ -54,12 +54,10 @@ public class MediaBackEnd {
                 String[] readMedia = currentLine.split(",");
 
                 if (readMedia[0].charAt(0) == '0') {
-                    media[this.mediaCounter] = new Book(readMedia[1], Integer.parseInt(readMedia[2]),
-                            Long.parseLong(readMedia[3].trim()));
+                    media[this.mediaCounter] = new Book(readMedia[1], Integer.parseInt(readMedia[2]), Long.parseLong(readMedia[3].trim()));
                     this.mediaCounter++;
                 } else if (readMedia[0].charAt(0) == '1') {
-                    media[this.mediaCounter] = new Movie(readMedia[1], readMedia[2],
-                            Float.parseFloat(readMedia[3].trim()), readMedia[4]);
+                    media[this.mediaCounter] = new Movie(readMedia[1], readMedia[2], Float.parseFloat(readMedia[3].trim()), readMedia[4]);
                     this.mediaCounter++;
                 } else if (readMedia[0].charAt(0) == '2') {
                     media[this.mediaCounter] = new Song(readMedia[1], Float.parseFloat(readMedia[2].trim()));

@@ -1,5 +1,7 @@
 import java.io.*;
 
+import javax.xml.transform.Templates;
+
 //import Media.MediaType;
 
 public class MediaFrontEnd {
@@ -35,9 +37,9 @@ public class MediaFrontEnd {
             System.out.println(userPrompts);
 
             System.out.println(" ___________________________________________________________");
-            System.out.println("| [0] View Media Entries                                     |");
-            System.out.println("| [1] Search for Title Entry >> Must be exact Title name <<  |");
-            System.out.println("| [2] Add a Media Record                                      |");
+            System.out.println("| [0] View Media Entries                                    |");
+            System.out.println("| [1] Search for Title Entry >> Must be exact Title name << |");
+            System.out.println("| [2] Add a Media Record                                    |");
             System.out.println("| [3] Edit a Book Entry                                     |");
             System.out.println("| [4] Delete a Book Entry                                   |");
             System.out.println("| [5] Save a Book Entry                                     |");
@@ -57,8 +59,8 @@ public class MediaFrontEnd {
                 // this.editTitle();
                 // } else if (systemInput.equals("4")) {
                 // this.deleteEntry();
-                // } else if (systemInput.equals("5")) {
-                // this.saveToFile();
+            } else if (systemInput.equals("5")) {
+                this.mediaBackEnd.saveFile("Test");
             } else if (systemInput.equals("6")) {
                 // User Option to Expand Memory if Needed
                 this.mediaBackEnd.expandMaxEntry();
@@ -166,17 +168,17 @@ public class MediaFrontEnd {
                     if (!this.mediaBackEnd.SearchTitle(title)) {
                         System.out.println("Please Enter the Directors Name: " + "\n");
                         String directName = this.inputScanner.readLine();
-                        System.out.println("Please Enter the Directors Name: " + "\n");
+                        System.out.println("Please Enter the Movie length: " + "\n");
                         float length = Float.parseFloat(this.inputScanner.readLine());
                         System.out.println("");
-                        System.out.println("Please Enter the Directors Name: " + "\n");
+                        System.out.println("Please Enter the Movie Description: " + "\n");
                         String movieComment = this.inputScanner.readLine();
                         System.out.println("");
                         System.out.println("############################");
                         System.out.println("Adding Your Title deets.....");
                         ((MediaBackEnd) this.mediaBackEnd).addMovieType(title, directName, length, movieComment);
-                        ;
                         System.out.println("Movie Title Added");
+                        System.out.println("");
                         this.saveFile();
 
                     } else if (this.mediaBackEnd.SearchTitle(tempMovie.title)) {
@@ -198,11 +200,22 @@ public class MediaFrontEnd {
     }
 
     public void saveFile() {
+        System.out.println("Would you like to Save this file?");
+        System.out.println(">> Press [1] for YES");
+        System.out.println(">> Press [2] for NO");
+        System.out.println("");
 
-        System.out.println("Please enter the name of the file");
         try {
-            String fileName = inputScanner.readLine();
-            this.mediaBackEnd.saveFile(fileName);
+            String saveInput = this.inputScanner.readLine();
+
+            if (saveInput.equals("1")) {
+                System.out.println("Please enter the name of the file");
+                String fileName = inputScanner.readLine();
+                this.mediaBackEnd.saveFile(fileName);
+            } else if (saveInput.equals("2")) {
+                System.out.println("Not Saved...");
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -217,7 +230,8 @@ public class MediaFrontEnd {
             Boolean result = this.mediaBackEnd.SearchTitle(title);
 
             if (result)
-                System.out.println("Record Found: " + title +" - " + this.mediaBackEnd.getMedia()[0].GetDescription());
+                System.out.println("Record Found: " + title + " - "
+                        + this.mediaBackEnd.getMedia()[this.mediaBackEnd.getMediaCounter()].GetDescription());
             else
                 System.out.println("No record Found.....");
 
