@@ -29,10 +29,10 @@ public class MediaBackEnd {
         // System.out.println("Counter " + mediaCounter);
         // media[mediaCounter] = new Book("asdasd", 88888888);
         // for (int i = 0; i < media.length; i++) {
-        //     if (media[i] != null) {
-        //         System.out.println(media[i].GetDescription());
+        // if (media[i] != null) {
+        // System.out.println(media[i].GetDescription());
 
-        //     }
+        // }
         // }
     }
 
@@ -56,8 +56,8 @@ public class MediaBackEnd {
                     media[this.mediaCounter] = new Book(readMedia[1], Long.parseLong(readMedia[2].trim()));
                     this.mediaCounter++;
                 } else if (readMedia[0].charAt(0) == '1') {
-                    media[this.mediaCounter] = new Movie(readMedia[1], readMedia[2], Float.parseFloat(readMedia[3]),
-                            readMedia[4]);
+                    media[this.mediaCounter] = new Movie(readMedia[1], readMedia[2],
+                            Float.parseFloat(readMedia[3].trim()), readMedia[4]);
                     this.mediaCounter++;
                 } else if (readMedia[0].charAt(0) == '2') {
                     media[this.mediaCounter] = new Song(readMedia[1], Float.parseFloat(readMedia[2].trim()));
@@ -66,8 +66,8 @@ public class MediaBackEnd {
                     throw new InvalidMediaTypeException(readMedia[0]);
                 }
                 currentLine = reader.readLine();
-                reader.close();
             }
+            reader.close();
 
         } catch (Exception e) {
 
@@ -75,7 +75,6 @@ public class MediaBackEnd {
         }
     }
 
-    
     public void saveFile(String fileName) {
 
         try {
