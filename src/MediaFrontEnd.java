@@ -49,19 +49,19 @@ public class MediaFrontEnd {
             // if else statments for user inputs.
             if (systemInput.equals("0")) {
                 this.viewBookTable();
-                // } else if (systemInput.equals("1")) {
-                // this.searchTitle();
-                // } else if (systemInput.equals("2")) {
-                // this.addTitle();
+            } else if (systemInput.equals("1")) {
+                this.searchTitle();
+            } else if (systemInput.equals("2")) {
+                this.addMedia();
                 // } else if (systemInput.equals("3")) {
                 // this.editTitle();
                 // } else if (systemInput.equals("4")) {
                 // this.deleteEntry();
                 // } else if (systemInput.equals("5")) {
                 // this.saveToFile();
-                // } else if (systemInput.equals("6")) {
-                // // User Option to Expand Memory if Needed
-                // this.mediaBackEnd.expandMaxEntry();
+            } else if (systemInput.equals("6")) {
+                // User Option to Expand Memory if Needed
+                this.mediaBackEnd.expandMaxEntry();
                 // } else if (systemInput.equalsIgnoreCase("exit")) {
                 // System.out.println("");
                 // System.out.println(">>TTYL, Good Bye<<");
@@ -71,8 +71,8 @@ public class MediaFrontEnd {
         } catch (Exception e) {
             // Throws format exception if nothing or incorrect primitive type is entered.
             System.out.println("");
-            String errorMessage = "Error: Incorrect Input";
-            System.out.println(errorMessage);
+            // String errorMessage = "Error: Incorrect Input";
+            System.out.println(e.getMessage());
 
         }
         // Will repeat functions until conditions are met, from above selection.
@@ -82,25 +82,74 @@ public class MediaFrontEnd {
 
     public void viewBookTable() {
 
-        String leftAlignFormat = "| %-7s| %-82s | %-46s | %-18s |%n";
+        String leftAlignFormat = "| %-20s| %-19s | %-13s|%n";
 
-        System.out.format("+--------+---------------------+-------------------+------------+%n");
-        System.out.format("| BookID | Book Title          | Authors           | ISBN       |%n");
-        System.out.format("+--------+---------------------+-------------------+------------+%n");
+        System.out.format("+---------------------+---------------------+--------------+%n");
+        System.out.format("| Book Title          | Book Page Number    | iSBN         |%n");
+        System.out.format("+---------------------+---------------------+--------------+%n");
 
         int i = 0;
         while (i < this.mediaBackEnd.getMediaCounter()) {
-            if(this.mediaBackEnd.getMedia()[i].getType() == Media.MediaType.BOOK)
-            {
-                Book temp= ((Book)this.mediaBackEnd.getMedia()[i]);
-                System.out.format(leftAlignFormat,temp.getISBN());
-            }     
+            if (this.mediaBackEnd.getMedia()[i].getType() == Media.MediaType.BOOK) {
+                Book temp = ((Book) this.mediaBackEnd.getMedia()[i]);
+                System.out.format(leftAlignFormat, temp.title, temp.getPageCount(), temp.getISBN());
+            }
             i++;
         }
-        System.out.format("+--------+---------------------+-------------------+------------+%n");
+        System.out.format("+---------------------+---------------------+--------------+%n");
         System.out.println("");
         System.out.println("");
 
+    }
+
+    public void addMedia() {
+
+        if (!isDatabaseFull()) {
+            System.out.println("What type of Media do you want to Create?");
+            System.out.println(">> Press [1] for Book Entry <<");
+            System.out.println(">> Press [2] for Song Entry <<");
+            System.out.println(">> Press [3] for Movie Entry <<");
+
+            try {
+                String userInput = this.inputScanner.readLine();
+
+                if (userInput.equals("1")) {
+                    int i = 0;
+                    Book tempBook = ((Book) this.mediaBackEnd.getMedia()[i]);
+
+                    System.out.println("Please Enter Your Title:" + "\n");
+                    String title = this.inputScanner.readLine();
+                    if (!this.mediaBackEnd.SearchTitle(title)) {
+                        System.out.println("Please Enter the Page Count: " + "\n");
+                        int pageCount = Integer.parseInt(this.inputScanner.readLine());
+                        System.out.println("PLease Enter the ISBN: " + "\n");
+                        long iSBN = Long.parseLong(this.inputScanner.readLine());
+                        System.out.println("############################");
+                        System.out.println("Adding Your Title deets.....");
+                        ((MediaBackEnd) this.mediaBackEnd).addBookType(title, pageCount, iSBN);
+                        System.out.println("Book Title Added");
+                        this.saveFile();
+
+                    } else if (this.mediaBackEnd.SearchTitle(tempBook.title)) {
+                        System.out.println("A Title Already Exists!");
+
+                    }
+
+                }
+
+
+
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+        if (isDatabaseFull()) {
+            System.out.println("Your Database if Full, please increase your List Size!");
+
+        }
     }
 
     public void saveFile() {
@@ -112,6 +161,31 @@ public class MediaFrontEnd {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void searchTitle() {
+
+        System.out.println("Please enter Title");
+        String title;
+        try {
+            title = this.inputScanner.readLine().toString();
+            Boolean result = this.mediaBackEnd.SearchTitle(title);
+
+            if (result)
+                System.out.println("Record Found: " + title);
+            else
+                System.out.println("No record Found.....");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            e.getMessage();
+        }
+
+    }
+
+    public boolean isDatabaseFull() {
+        this.mediaBackEnd.isDatabaseFull();
+        return false;
     }
 
 }

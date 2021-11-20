@@ -3,10 +3,12 @@ import java.io.*;
 public class Book extends Media {
 
     private long ISBN;
+    private int pageCount;
 
-    public Book(String title, long isbn) {
+    public Book(String title, int pageCount, long isbn) {
         super(title);
         this.ISBN = isbn;
+        this.pageCount = pageCount;
         type = Media.MediaType.BOOK;
     }
 
@@ -20,15 +22,14 @@ public class Book extends Media {
     public void Serialize(BufferedWriter writeFile) {
 
         try {
-            writeFile.append(0 + "," + ISBN);
+            writeFile.append(0 + "," + title + "," + pageCount + "," + ISBN);
             writeFile.newLine();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
-    } 
-    
+    }
+
     public long getISBN() {
         return ISBN;
     }
@@ -36,5 +37,13 @@ public class Book extends Media {
     public void setISBN(long iSBN) {
         ISBN = iSBN;
     }
-    
+
+    public int getPageCount() {
+        return pageCount;
+    }
+
+    public void setPageCount(int pageCount) {
+        this.pageCount = pageCount;
+    }
+
 }

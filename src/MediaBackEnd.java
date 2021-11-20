@@ -23,6 +23,20 @@ public class MediaBackEnd {
         expandMaxEntry();
     }
 
+    public Boolean SearchTitle(String title) {
+
+        int i = 0;
+        while (i < this.mediaCounter) {
+            if (media[i].title != null) {
+                if (media[i].title.equals(title)) {
+                    return true;
+                }
+                i++;
+            }
+        }
+        return false;
+    }
+
     public void fileReader() {
 
         BufferedReader reader = null;
@@ -40,7 +54,7 @@ public class MediaBackEnd {
                 String[] readMedia = currentLine.split(",");
 
                 if (readMedia[0].charAt(0) == '0') {
-                    media[this.mediaCounter] = new Book(readMedia[1], Long.parseLong(readMedia[2].trim()));
+                    media[this.mediaCounter] = new Book(readMedia[1], Integer.parseInt(readMedia[2]), Long.parseLong(readMedia[3].trim()));
                     this.mediaCounter++;
                 } else if (readMedia[0].charAt(0) == '1') {
                     media[this.mediaCounter] = new Movie(readMedia[1], readMedia[2],
@@ -57,21 +71,27 @@ public class MediaBackEnd {
             reader.close();
 
         } catch (Exception e) {
-
+            e.printStackTrace();
             System.out.println("Error while reading file: " + e.getMessage());
         }
     }
 
+    public void addBookType(String title, int pageCount, long iSBN){
+        this.media[this.mediaCounter] = new Book(title, pageCount, iSBN);
+        this.mediaCounter++;
+    }
     public void saveFile(String fileName) {
 
         try {
 
-            BufferedWriter writeToFile = new BufferedWriter(new FileWriter(fileName + ".csv", true));
-            writeToFile.write(this.mediaCounter);
+            BufferedWriter writeToFile = new BufferedWriter(new FileWriter(fileName + ".csv"));
+            writeToFile.write(this.mediaCounter +"\n");
             int i = 0;
             while (i < mediaCounter) {
                 media[i].Serialize(writeToFile);
+                i++;
             }
+            System.out.println("Save Successful!");
             writeToFile.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -91,6 +111,10 @@ public class MediaBackEnd {
         media = temp;
     }
 
+    public boolean isDatabaseFull() {
+		return this.mediaCounter >= this.maxMediaEntry;
+	}
+
     // Getter and Setter explicitly public for accessible from everywhere.
     // Parameters within class to initialize attributes
     public int getMediaCounter() {
@@ -99,6 +123,10 @@ public class MediaBackEnd {
 
     public Media[] getMedia() {
         return media;
+    }
+
+    public boolean SearchTitle(Book tempBook) {
+        return false;
     }
 
 }

@@ -25,7 +25,7 @@ public class Song extends Media {
     public void Serialize(BufferedWriter writeFile) {
 
         try {
-            writeFile.write(2 + "," + lengthInSeconds);
+            writeFile.write(2 + "," + title + "," + lengthInSeconds);
             writeFile.newLine();
         } catch (IOException e) {
 
