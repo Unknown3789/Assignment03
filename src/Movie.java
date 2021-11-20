@@ -3,15 +3,23 @@ import java.io.IOException;
 
 public class Movie extends Media {
 
-    public Movie(String title, String director, float length, String comment){
+    private String director;
+    private float length;
+    private String comment;
+
+    public Movie(String title, String director, float length, String comment) {
+
         super(title);
+        this.director = director;
+        this.length = length;
+        this.comment = comment;
         type = Media.MediaType.MOVIE;
     }
 
     @Override
     public String GetDescription() {
 
-        return "Hey, I'm a Movie " ;
+        return title + director + length + comment;
     }
 
     @Override

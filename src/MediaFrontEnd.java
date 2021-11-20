@@ -2,7 +2,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class MediaFrontEnd {
+//import Media.MediaType;
+
+public class MediaFrontEnd{
 
     private MediaBackEnd mediaBackEnd;
     private BufferedReader inputScanner;
@@ -48,7 +50,7 @@ public class MediaFrontEnd {
             systemInput = this.inputScanner.readLine();
             // if else statments for user inputs.
             if (systemInput.equals("0")) {
-                // this.viewTable();
+                // this.viewBookTable();
                 // } else if (systemInput.equals("1")) {
                 // this.searchTitle();
                 // } else if (systemInput.equals("2")) {
@@ -80,29 +82,30 @@ public class MediaFrontEnd {
 
     }
 
-    // public void viewBookTable() {
+    public void viewBookTable() {
 
-	// 	String leftAlignFormat = "| %-7s| %-82s | %-46s | %-18s | %-10s | %-18s | %-15s | %-12s | %-12s | %-16s | %-25s |%n";
+		String leftAlignFormat = "| %-7s| %-82s | %-46s | %-18s | %-10s | %-18s | %-15s | %-12s | %-12s | %-16s | %-25s |%n";
 
-	// 	System.out.format(
-	// 			"+--------+------------------------------------------------------------------------------------+------------------------------------------------+--------------------+------------+--------------------+-----------------+--------------+--------------+------------------+---------------------------+%n");
-	// 	System.out.format(
-	// 			"| BookID | Book Title                                                                         | Authors                                        | Average Rating     | ISBN       | Language           | Number of Pages | Rating Count | Review Count | Publication Date | Publisher                 |%n");
-	// 	System.out.format(
-	// 			"+--------+------------------------------------------------------------------------------------+------------------------------------------------+--------------------+------------+--------------------+-----------------+--------------+--------------+------------------+---------------------------+%n");
-	// 	int i = 0;
+		System.out.format(
+				"+--------+------------------------------------------------------------------------------------+------------------------------------------------+--------------------+------------+--------------------+-----------------+--------------+--------------+------------------+---------------------------+%n");
+		System.out.format(
+				"| BookID | Book Title                                                                         | Authors                                        | Average Rating     | ISBN       | Language           | Number of Pages | Rating Count | Review Count | Publication Date | Publisher                 |%n");
+		System.out.format(
+				"+--------+------------------------------------------------------------------------------------+------------------------------------------------+--------------------+------------+--------------------+-----------------+--------------+--------------+------------------+---------------------------+%n");
+		int i = 0;
+        String bookArray[] = new String[this.mediaBackEnd.getMedia().length];
+		while (i < this.mediaBackEnd.getMediaCounter()) {
 
-	// 	while (i < this.mediaBackEnd.getMediaCounter()) {
-	// 		System.out.format(leftAlignFormat, this.mediaBackEnd.;
-	// 		i++;
-	// 	}
-	// 	System.out.format(
-	// 			"+--------+------------------------------------------------------------------------------------+------------------------------------------------+--------------------+------------+--------------------+-----------------+--------------+--------------+------------------+---------------------------+%n");
+			System.out.format(leftAlignFormat, bookArray[0]);
+			i++;
+		}
+		System.out.format(
+				"+--------+------------------------------------------------------------------------------------+------------------------------------------------+--------------------+------------+--------------------+-----------------+--------------+--------------+------------------+---------------------------+%n");
 
-	// 	System.out.println("");
-	// 	System.out.println("");
+		System.out.println("");
+		System.out.println("");
 
-	// }
+	}
 
     public void saveFile() {
 
