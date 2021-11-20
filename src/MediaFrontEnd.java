@@ -89,8 +89,12 @@ public class MediaFrontEnd {
         System.out.format("+--------+---------------------+-------------------+------------+%n");
 
         int i = 0;
-        while (i < this.mediaBackEnd.getMediaCounter()) {            
-                        System.out.format(leftAlignFormat, this.mediaBackEnd.getMedia().getClass());
+        while (i < this.mediaBackEnd.getMediaCounter()) {
+            if(this.mediaBackEnd.getMedia()[i].getType() == Media.MediaType.BOOK)
+            {
+                Book temp= ((Book)this.mediaBackEnd.getMedia()[i]);
+                System.out.format(leftAlignFormat,temp.getISBN());
+            }     
             i++;
         }
         System.out.format("+--------+---------------------+-------------------+------------+%n");
