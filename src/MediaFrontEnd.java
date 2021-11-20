@@ -90,7 +90,7 @@ public class MediaFrontEnd {
 
         int i = 0;
         while (i < this.mediaBackEnd.getMediaCounter()) {            
-                        System.out.format(leftAlignFormat, this.mediaBackEnd.getMedia());
+                        System.out.format(leftAlignFormat, this.mediaBackEnd.getMedia().getClass());
             i++;
         }
         System.out.format("+--------+---------------------+-------------------+------------+%n");
