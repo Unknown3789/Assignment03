@@ -15,7 +15,7 @@ public class Book extends Media {
     @Override
     public String GetDescription() {
 
-        return "Hey, I'm a book " + ISBN;
+        return "Hey, I'm a book and this is my ISBN:  " + ISBN;
     }
 
     @Override

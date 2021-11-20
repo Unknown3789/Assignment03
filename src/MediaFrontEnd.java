@@ -35,9 +35,9 @@ public class MediaFrontEnd {
             System.out.println(userPrompts);
 
             System.out.println(" ___________________________________________________________");
-            System.out.println("| [0] View Book Entries                                     |");
-            System.out.println("| [1] Search for Book Entry >> Must be exact Title name <<  |");
-            System.out.println("| [2] Add a Book Title                                      |");
+            System.out.println("| [0] View Media Entries                                     |");
+            System.out.println("| [1] Search for Title Entry >> Must be exact Title name <<  |");
+            System.out.println("| [2] Add a Media Record                                      |");
             System.out.println("| [3] Edit a Book Entry                                     |");
             System.out.println("| [4] Delete a Book Entry                                   |");
             System.out.println("| [5] Save a Book Entry                                     |");
@@ -124,6 +124,7 @@ public class MediaFrontEnd {
                         int pageCount = Integer.parseInt(this.inputScanner.readLine());
                         System.out.println("PLease Enter the ISBN: " + "\n");
                         long iSBN = Long.parseLong(this.inputScanner.readLine());
+                        System.out.println("");
                         System.out.println("############################");
                         System.out.println("Adding Your Title deets.....");
                         ((MediaBackEnd) this.mediaBackEnd).addBookType(title, pageCount, iSBN);
@@ -131,15 +132,59 @@ public class MediaFrontEnd {
                         this.saveFile();
 
                     } else if (this.mediaBackEnd.SearchTitle(tempBook.title)) {
-                        System.out.println("A Title Already Exists!");
+                        System.out.println("That Book Title Already Added!");
+
+                    }
+
+                } else if (userInput.equals("2")) {
+                    int i = 2;
+                    Song tempSong = ((Song) this.mediaBackEnd.getMedia()[i]);
+
+                    System.out.println("Please Enter the Song Title:" + "\n");
+                    String title = this.inputScanner.readLine();
+                    if (!this.mediaBackEnd.SearchTitle(title)) {
+                        System.out.println("Please Enter the Song Length: " + "\n");
+                        float length = Float.parseFloat(this.inputScanner.readLine());
+                        System.out.println("");
+                        System.out.println("############################");
+                        System.out.println("Adding Your Title deets.....");
+                        ((MediaBackEnd) this.mediaBackEnd).addSongType(title, length);
+                        System.out.println("Song Title Added");
+                        this.saveFile();
+
+                    } else if (this.mediaBackEnd.SearchTitle(tempSong.title)) {
+                        System.out.println("That Song Already Exists!");
+
+                    }
+
+                } else if (userInput.equals("3")) {
+                    int i = 1;
+                    Movie tempMovie = ((Movie) this.mediaBackEnd.getMedia()[i]);
+
+                    System.out.println("Please Enter the Movie Title:" + "\n");
+                    String title = this.inputScanner.readLine();
+                    if (!this.mediaBackEnd.SearchTitle(title)) {
+                        System.out.println("Please Enter the Directors Name: " + "\n");
+                        String directName = this.inputScanner.readLine();
+                        System.out.println("Please Enter the Directors Name: " + "\n");
+                        float length = Float.parseFloat(this.inputScanner.readLine());
+                        System.out.println("");
+                        System.out.println("Please Enter the Directors Name: " + "\n");
+                        String movieComment = this.inputScanner.readLine();
+                        System.out.println("");
+                        System.out.println("############################");
+                        System.out.println("Adding Your Title deets.....");
+                        ((MediaBackEnd) this.mediaBackEnd).addMovieType(title, directName, length, movieComment);
+                        ;
+                        System.out.println("Movie Title Added");
+                        this.saveFile();
+
+                    } else if (this.mediaBackEnd.SearchTitle(tempMovie.title)) {
+                        System.out.println("That Movie Already Exists!");
 
                     }
 
                 }
-
-
-
-
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -172,7 +217,7 @@ public class MediaFrontEnd {
             Boolean result = this.mediaBackEnd.SearchTitle(title);
 
             if (result)
-                System.out.println("Record Found: " + title);
+                System.out.println("Record Found: " + title +" - " + this.mediaBackEnd.getMedia()[0].GetDescription());
             else
                 System.out.println("No record Found.....");
 

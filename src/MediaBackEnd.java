@@ -54,7 +54,8 @@ public class MediaBackEnd {
                 String[] readMedia = currentLine.split(",");
 
                 if (readMedia[0].charAt(0) == '0') {
-                    media[this.mediaCounter] = new Book(readMedia[1], Integer.parseInt(readMedia[2]), Long.parseLong(readMedia[3].trim()));
+                    media[this.mediaCounter] = new Book(readMedia[1], Integer.parseInt(readMedia[2]),
+                            Long.parseLong(readMedia[3].trim()));
                     this.mediaCounter++;
                 } else if (readMedia[0].charAt(0) == '1') {
                     media[this.mediaCounter] = new Movie(readMedia[1], readMedia[2],
@@ -76,16 +77,27 @@ public class MediaBackEnd {
         }
     }
 
-    public void addBookType(String title, int pageCount, long iSBN){
+    public void addBookType(String title, int pageCount, long iSBN) {
         this.media[this.mediaCounter] = new Book(title, pageCount, iSBN);
         this.mediaCounter++;
     }
+
+    public void addSongType(String title, float length) {
+        this.media[this.mediaCounter] = new Song(title, length);
+        this.mediaCounter++;
+    }
+
+    public void addMovieType(String title, String director, float length, String comment) {
+        this.media[this.mediaCounter] = new Movie(title, director, length, comment);
+        this.mediaCounter++;
+    }
+
     public void saveFile(String fileName) {
 
         try {
 
             BufferedWriter writeToFile = new BufferedWriter(new FileWriter(fileName + ".csv"));
-            writeToFile.write(this.mediaCounter +"\n");
+            writeToFile.write(this.mediaCounter + "\n");
             int i = 0;
             while (i < mediaCounter) {
                 media[i].Serialize(writeToFile);
@@ -112,8 +124,8 @@ public class MediaBackEnd {
     }
 
     public boolean isDatabaseFull() {
-		return this.mediaCounter >= this.maxMediaEntry;
-	}
+        return this.mediaCounter >= this.maxMediaEntry;
+    }
 
     // Getter and Setter explicitly public for accessible from everywhere.
     // Parameters within class to initialize attributes
@@ -128,5 +140,4 @@ public class MediaBackEnd {
     public boolean SearchTitle(Book tempBook) {
         return false;
     }
-
 }
