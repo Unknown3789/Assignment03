@@ -37,10 +37,8 @@ public class MediaFrontEnd {
             System.out.println("| [0] View Media Entries                                    |");
             System.out.println("| [1] Search for Title Entry >> Must be exact Title name << |");
             System.out.println("| [2] Add a Media Record                                    |");
-            System.out.println("| [3] Edit a Book Entry                                     |");
-            System.out.println("| [4] Delete a Book Entry                                   |");
-            System.out.println("| [5] Save a Book Entry                                     |");
-            System.out.println("| [6] Expand your Book Entry Inventory                      |");
+            System.out.println("| [3] Save a Book Entry                                     |");
+            System.out.println("| [4] Expand your Book Entry Inventory                      |");
             System.out.println("| [exit] Exit                                               |");
             System.out.println(" ___________________________________________________________");
 
@@ -52,22 +50,18 @@ public class MediaFrontEnd {
                 this.searchTitle();
             } else if (systemInput.equals("2")) {
                 this.addMedia();
-                // } else if (systemInput.equals("3")) {
-                // this.editTitle();
-                // } else if (systemInput.equals("4")) {
-                // this.deleteEntry();
-            } else if (systemInput.equals("5")) {
+            } else if (systemInput.equals("3")) {
                 this.mediaBackEnd.saveFile("Test");
-            } else if (systemInput.equals("6")) {
+            } else if (systemInput.equals("4")) {
                 // User Option to Expand Memory if Needed
                 this.mediaBackEnd.expandMaxEntry();
-                // } else if (systemInput.equalsIgnoreCase("exit")) {
-                // System.out.println("");
-                // System.out.println(">>TTYL, Good Bye<<");
-                // }
+            } else if (systemInput.equalsIgnoreCase("exit")) {
+                System.out.println("");
+                System.out.println(">>TTYL, Good Bye<<");
             }
 
         } catch (Exception e) {
+            e.printStackTrace();
             // Throws format exception if nothing or incorrect primitive type is entered.
             System.out.println("");
             // String errorMessage = "Error: Incorrect Input";
@@ -153,7 +147,6 @@ public class MediaFrontEnd {
             }
 
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -285,8 +278,7 @@ public class MediaFrontEnd {
             Boolean result = this.mediaBackEnd.SearchTitle(title);
 
             if (result)
-                System.out.println("Record Found: " + title + " - "
-                        + this.mediaBackEnd.getMedia()[this.mediaBackEnd.getMediaCounter()].GetDescription());
+                System.out.println("Record Found: " + title + " - " + this.mediaBackEnd.getMedia()[this.mediaBackEnd.getMediaCounter()].GetDescription());
             else
                 System.out.println("No record Found.....");
 
