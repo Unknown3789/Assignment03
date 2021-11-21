@@ -23,7 +23,7 @@ public class MediaFrontEnd {
     }
 
     public String systemInput(String userPrompts) {
-
+        this.mediaBackEnd.expandMaxEntry();
         String systemInput = null;
         // Try and Catch utilised for exception catching for invalid BufferedReading.
         try {
@@ -37,7 +37,6 @@ public class MediaFrontEnd {
             System.out.println("| [1] Search for Title Entry >> Must be exact Title name << |");
             System.out.println("| [2] Add a Media Record                                    |");
             System.out.println("| [3] Save a Book Entry                                     |");
-            System.out.println("| [4] Expand your Book Entry Inventory                      |");
             System.out.println("| [exit] Exit                                               |");
             System.out.println(" ___________________________________________________________");
             System.out.println("");
@@ -51,10 +50,7 @@ public class MediaFrontEnd {
             } else if (systemInput.equals("2")) {
                 this.addMedia();
             } else if (systemInput.equals("3")) {
-                this.mediaBackEnd.saveFile("Test");
-            } else if (systemInput.equals("4")) {
-                // User Option to Expand Memory if Needed
-                this.mediaBackEnd.expandMaxEntry();
+                this.mediaBackEnd.saveFile("mediaArchive");
             } else if (systemInput.equalsIgnoreCase("exit")) {
                 System.out.println("");
                 System.out.println(">>TTYL, Good Bye<<");
@@ -149,109 +145,104 @@ public class MediaFrontEnd {
             }
 
         } catch (IOException e) {
-            System.out.println("Something Unexpected happen? Please contact IT: " + e.getMessage());;
+            System.out.println("Something Unexpected happen? Please contact IT: " + e.getMessage());
+            ;
         }
 
     }
 
     // add<edia method to add additional Media Objects.
     public void addMedia() throws InvalidMediaTypeException {
-        // Boolean method to check Entry Counter for available arrays.
-        if (!isDatabaseFull()) {
-            System.out.println("");
-            System.out.println("What type of Media do you want to Create?");
-            System.out.println(">> Press [1] for Book Entry <<");
-            System.out.println(">> Press [2] for Song Entry <<");
-            System.out.println(">> Press [3] for Movie Entry <<");
 
-            try {
-                String userInput = this.inputScanner.readLine();
-                // If elseif used here, Switch statments would be more effective in this case
-                // due to better performance and less condition checks are needed. User is only
-                // selecting an option no need for condtion checks.
-                if (userInput.equals("1")) {
-                    int i = 0;
-                    Book tempBook = ((Book) this.mediaBackEnd.getMedia()[i]);
+        System.out.println("");
+        System.out.println("What type of Media do you want to Create?");
+        System.out.println(">> Press [1] for Book Entry <<");
+        System.out.println(">> Press [2] for Song Entry <<");
+        System.out.println(">> Press [3] for Movie Entry <<");
 
-                    System.out.println("Please Enter Your Title:" + "\n");
-                    String title = this.inputScanner.readLine();
-                    if (!this.mediaBackEnd.SearchTitle(title).isMatch()) {
-                        System.out.println("Please Enter the Page Count: " + "\n");
-                        int pageCount = Integer.parseInt(this.inputScanner.readLine());
-                        System.out.println("PLease Enter the ISBN: " + "\n");
-                        long iSBN = Long.parseLong(this.inputScanner.readLine());
-                        System.out.println("");
-                        System.out.println("############################");
-                        System.out.println("Adding Your Title deets.....");
-                        ((MediaBackEnd) this.mediaBackEnd).addBookType(title, pageCount, iSBN);
-                        System.out.println("Book Title Added");
-                        this.saveFile();
+        try {
+            String userInput = this.inputScanner.readLine();
+            // If elseif used here, Switch statments would be more effective in this case
+            // due to better performance and less condition checks are needed. User is only
+            // selecting an option no need for condtion checks.
+            if (userInput.equals("1")) {
+                int i = 0;
+                Book tempBook = ((Book) this.mediaBackEnd.getMedia()[i]);
 
-                    } else if (this.mediaBackEnd.SearchTitle(tempBook.title).isMatch()) {
-                        System.out.println("That Book Title Already Added!");
+                System.out.println("Please Enter Your Title:" + "\n");
+                String title = this.inputScanner.readLine();
+                if (!this.mediaBackEnd.SearchTitle(title).isMatch()) {
+                    System.out.println("Please Enter the Page Count: " + "\n");
+                    int pageCount = Integer.parseInt(this.inputScanner.readLine());
+                    System.out.println("PLease Enter the ISBN: " + "\n");
+                    long iSBN = Long.parseLong(this.inputScanner.readLine());
+                    System.out.println("");
+                    System.out.println("############################");
+                    System.out.println("Adding Your Title deets.....");
+                    ((MediaBackEnd) this.mediaBackEnd).addBookType(title, pageCount, iSBN);
+                    System.out.println("Book Title Added");
+                    this.saveFile();
 
-                    }
+                } else if (this.mediaBackEnd.SearchTitle(tempBook.title).isMatch()) {
+                    System.out.println("That Book Title Already Added!");
 
-                } else if (userInput.equals("2")) {
-                    int i = 2;
-                    Song tempSong = ((Song) this.mediaBackEnd.getMedia()[i]);
-
-                    System.out.println("Please Enter the Song Title:" + "\n");
-                    String title = this.inputScanner.readLine();
-                    if (!this.mediaBackEnd.SearchTitle(title).isMatch()) {
-                        System.out.println("Please Enter the Song Length in Seconds: " + "\n");
-                        float length = Float.parseFloat(this.inputScanner.readLine());
-                        System.out.println("");
-                        System.out.println("############################");
-                        System.out.println("Adding Your Title deets.....");
-                        ((MediaBackEnd) this.mediaBackEnd).addSongType(title, length);
-                        System.out.println("Song Title Added");
-                        this.saveFile();
-
-                    } else if (this.mediaBackEnd.SearchTitle(tempSong.title).isMatch()) {
-                        System.out.println("That Song Already Exists!");
-
-                    }
-
-                } else if (userInput.equals("3")) {
-                    int i = 1;
-                    Movie tempMovie = ((Movie) this.mediaBackEnd.getMedia()[i]);
-
-                    System.out.println("Please Enter the Movie Title:" + "\n");
-                    String title = this.inputScanner.readLine();
-                    if (!this.mediaBackEnd.SearchTitle(title).isMatch()) {
-                        System.out.println("Please Enter the Directors Name: " + "\n");
-                        String directName = this.inputScanner.readLine();
-                        System.out.println("Please Enter the Movie length in Minutes: " + "\n");
-                        float length = Float.parseFloat(this.inputScanner.readLine());
-                        System.out.println("");
-                        System.out.println("Please Enter the Movie Description: " + "\n");
-                        String movieComment = this.inputScanner.readLine();
-                        System.out.println("");
-                        System.out.println("############################");
-                        System.out.println("Adding Your Title deets.....");
-                        ((MediaBackEnd) this.mediaBackEnd).addMovieType(title, directName, length, movieComment);
-                        System.out.println("Movie Title Added");
-                        System.out.println("");
-                        this.saveFile();
-
-                    } else if (this.mediaBackEnd.SearchTitle(tempMovie.title).isMatch()) {
-                        System.out.println("That Movie Already Exists!");
-                    }
                 }
 
-            } catch (IOException e) {
-                System.out.println("");
-                throw new InvalidMediaTypeException("Incorrect Media Type Entered!");
+            } else if (userInput.equals("2")) {
+                int i = 2;
+                Song tempSong = ((Song) this.mediaBackEnd.getMedia()[i]);
+
+                System.out.println("Please Enter the Song Title:" + "\n");
+                String title = this.inputScanner.readLine();
+                if (!this.mediaBackEnd.SearchTitle(title).isMatch()) {
+                    System.out.println("Please Enter the Song Length in Seconds: " + "\n");
+                    float length = Float.parseFloat(this.inputScanner.readLine());
+                    System.out.println("");
+                    System.out.println("############################");
+                    System.out.println("Adding Your Title deets.....");
+                    ((MediaBackEnd) this.mediaBackEnd).addSongType(title, length);
+                    System.out.println("Song Title Added");
+                    this.saveFile();
+
+                } else if (this.mediaBackEnd.SearchTitle(tempSong.title).isMatch()) {
+                    System.out.println("That Song Already Exists!");
+
+                }
+
+            } else if (userInput.equals("3")) {
+                int i = 1;
+                Movie tempMovie = ((Movie) this.mediaBackEnd.getMedia()[i]);
+
+                System.out.println("Please Enter the Movie Title:" + "\n");
+                String title = this.inputScanner.readLine();
+                if (!this.mediaBackEnd.SearchTitle(title).isMatch()) {
+                    System.out.println("Please Enter the Directors Name: " + "\n");
+                    String directName = this.inputScanner.readLine();
+                    System.out.println("Please Enter the Movie length in Minutes: " + "\n");
+                    float length = Float.parseFloat(this.inputScanner.readLine());
+                    System.out.println("");
+                    System.out.println("Please Enter the Movie Description: " + "\n");
+                    String movieComment = this.inputScanner.readLine();
+                    System.out.println("");
+                    System.out.println("############################");
+                    System.out.println("Adding Your Title deets.....");
+                    ((MediaBackEnd) this.mediaBackEnd).addMovieType(title, directName, length, movieComment);
+                    System.out.println("Movie Title Added");
+                    System.out.println("");
+                    this.saveFile();
+
+                } else if (this.mediaBackEnd.SearchTitle(tempMovie.title).isMatch()) {
+                    System.out.println("That Movie Already Exists!");
+                }
             }
 
-        }
-        if (isDatabaseFull()) {
-            System.out.println("Your Database if Full, please increase your List Size!");
-
+        } catch (IOException e) {
+            System.out.println("");
+            throw new InvalidMediaTypeException("Incorrect Media Type Entered!");
         }
     }
-    //saveFile method allows user to save a user defined File.
+
+    // saveFile method allows user to save a user defined File.
     public void saveFile() {
         System.out.println("");
         System.out.println("Would you like to Save this file?");
@@ -275,7 +266,9 @@ public class MediaFrontEnd {
             System.out.println(e.getMessage());
         }
     }
-    //searchTitle uses backEnd handling to match the media to the index allowing user to request correct Title.
+
+    // searchTitle uses backEnd handling to match the media to the index allowing
+    // user to request correct Title.
     public void searchTitle() {
 
         System.out.println("Please enter Title");
@@ -297,6 +290,7 @@ public class MediaFrontEnd {
 
     }
 
+    // Boolean method to check array size.
     public boolean isDatabaseFull() {
         this.mediaBackEnd.isDatabaseFull();
         return false;

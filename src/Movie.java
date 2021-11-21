@@ -18,7 +18,7 @@ public class Movie extends Media {
     @Override
     public String GetDescription() {
 
-        return "Hey, I'm a Movie and my movie Time is " + length + "minutes long.";
+        return "Hey, I'm a Movie and my movie time is " + length + " minutes long.";
     }
 
     @Override
