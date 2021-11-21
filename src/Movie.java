@@ -18,7 +18,7 @@ public class Movie extends Media {
     @Override
     public String GetDescription() {
 
-        return title + director + length + comment;
+        return "Hey, I'm a Movie and my movie Time is " + length + "minutes long.";
     }
 
     @Override
@@ -28,7 +28,6 @@ public class Movie extends Media {
             writeFile.append(1 + "," + title + "," + director + "," + length + "," + comment);
             writeFile.newLine();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -57,5 +56,5 @@ public class Movie extends Media {
     public void setComment(String comment) {
         this.comment = comment;
     }
-    
+
 }

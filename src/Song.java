@@ -18,7 +18,7 @@ public class Song extends Media {
     @Override
     public String GetDescription() {
 
-        return "Hey, I'm a song " + lengthInSeconds;
+        return "Hey, I'm a song at " + lengthInSeconds + "seconds long.";
     }
 
     @Override
