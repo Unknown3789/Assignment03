@@ -1,7 +1,4 @@
 import java.io.*;
-
-import javax.xml.transform.Templates;
-
 //import Media.MediaType;
 
 public class MediaFrontEnd {
@@ -50,7 +47,7 @@ public class MediaFrontEnd {
             systemInput = this.inputScanner.readLine();
             // if else statments for user inputs.
             if (systemInput.equals("0")) {
-                this.viewBookTable();
+                this.viewMediaTable();
             } else if (systemInput.equals("1")) {
                 this.searchTitle();
             } else if (systemInput.equals("2")) {
@@ -82,25 +79,83 @@ public class MediaFrontEnd {
 
     }
 
-    public void viewBookTable() {
+    public void viewMediaTable() {
 
-        String leftAlignFormat = "| %-20s| %-19s | %-13s|%n";
+        System.out.println("Which Media would you like to See?");
+        System.out.println(">> Press [1] to view Books");
+        System.out.println(">> Press [2] to view Movies");
+        System.out.println(">> Press [3] to View Songs");
 
-        System.out.format("+---------------------+---------------------+--------------+%n");
-        System.out.format("| Book Title          | Book Page Number    | iSBN         |%n");
-        System.out.format("+---------------------+---------------------+--------------+%n");
+        try {
+            String tableInput = this.inputScanner.readLine();
+            if (tableInput.equals("1")) {
 
-        int i = 0;
-        while (i < this.mediaBackEnd.getMediaCounter()) {
-            if (this.mediaBackEnd.getMedia()[i].getType() == Media.MediaType.BOOK) {
-                Book temp = ((Book) this.mediaBackEnd.getMedia()[i]);
-                System.out.format(leftAlignFormat, temp.title, temp.getPageCount(), temp.getISBN());
+                String leftAlignFormat = "| %-20s| %-19s | %-13s|%n";
+
+                System.out.format("+---------------------+---------------------+--------------+%n");
+                System.out.format("| Book Title          | Book Page Number    | iSBN         |%n");
+                System.out.format("+---------------------+---------------------+--------------+%n");
+
+                int i = 0;
+                while (i < this.mediaBackEnd.getMediaCounter()) {
+                    if (this.mediaBackEnd.getMedia()[i].getType() == Media.MediaType.BOOK) {
+                        Book temp = ((Book) this.mediaBackEnd.getMedia()[i]);
+                        System.out.format(leftAlignFormat, temp.title, temp.getPageCount(), temp.getISBN());
+                    }
+                    i++;
+                }
+                System.out.format("+---------------------+---------------------+--------------+%n");
+                System.out.println("");
+                System.out.println("");
+
+            } else if (tableInput.equals("2")) {
+                String leftAlignFormat = "| %-20s| %-19s | %-13s| %-36s|%n";
+
+                System.out.format(
+                        "+---------------------+---------------------+--------------+-------------------------------------+%n");
+                System.out.format(
+                        "| Movie Title         | Movie Director      | Movie Length | Movie Description                   |%n");
+                System.out.format(
+                        "+---------------------+---------------------+--------------+-------------------------------------+%n");
+
+                int i = 0;
+                while (i < this.mediaBackEnd.getMediaCounter()) {
+                    if (this.mediaBackEnd.getMedia()[i].getType() == Media.MediaType.MOVIE) {
+                        Movie temp = ((Movie) this.mediaBackEnd.getMedia()[i]);
+                        System.out.format(leftAlignFormat, temp.title, temp.getDirector(), temp.getLength(),
+                                temp.getComment());
+                    }
+                    i++;
+                }
+                System.out.format(
+                        "+---------------------+---------------------+--------------+-------------------------------------+%n");
+                System.out.println("");
+                System.out.println("");
+            } else if (tableInput.equals("3")) {
+                String leftAlignFormat = "| %-20s| %-21s |%n";
+
+                System.out.format("+---------------------+-----------------------+%n");
+                System.out.format("| Song Title          | Song Length in Seconds|%n");
+                System.out.format("+---------------------+-----------------------+%n");
+
+                int i = 0;
+                while (i < this.mediaBackEnd.getMediaCounter()) {
+                    if (this.mediaBackEnd.getMedia()[i].getType() == Media.MediaType.SONG) {
+                        Song temp = ((Song) this.mediaBackEnd.getMedia()[i]);
+                        System.out.format(leftAlignFormat, temp.title, temp.getLengthInSeconds());
+                    }
+                    i++;
+                }
+                System.out.format("+---------------------+-----------------------+%n");
+
+                System.out.println("");
+                System.out.println("");
             }
-            i++;
+
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
-        System.out.format("+---------------------+---------------------+--------------+%n");
-        System.out.println("");
-        System.out.println("");
 
     }
 

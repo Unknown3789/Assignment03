@@ -33,4 +33,13 @@ public class Song extends Media {
 
     }
 
+    public float getLengthInSeconds() {
+        return lengthInSeconds;
+    }
+
+    public void setLengthInSeconds(float lengthInSeconds) {
+        this.lengthInSeconds = lengthInSeconds;
+    }
+    
+
 }
