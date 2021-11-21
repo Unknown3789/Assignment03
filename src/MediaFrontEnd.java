@@ -10,9 +10,9 @@ public class MediaFrontEnd {
 
         this.mediaBackEnd = mediaBackEnd;
 
-        System.out.println("Best Reads!");
+        System.out.println("Media Archiver!");
         System.out.println("");
-        System.out.println("A Light and Easy Application to explore reviewed Novels!");
+        System.out.println("A Light and Easy Application to store Media Titles!");
         System.out.println("");
         System.out.println(" ___________________________________________________________");
         String readFileName = systemInput("| Welcome! Please make your Selection:                      |");
